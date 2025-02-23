@@ -1,6 +1,6 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use rocket::{futures::lock::Mutex, get, routes, State};
+use rocket::{get, routes, State};
 
 #[get("/increment")]
 
@@ -35,7 +35,7 @@ pub struct Counter {
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
-    dotenv::dotenv();
+    let _ = dotenv::dotenv();
     let _rocket = rocket::build()
         .manage(Counter {
             count: AtomicUsize::new(0),
